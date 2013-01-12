@@ -1,0 +1,22 @@
+﻿@model WeatherForecast.ViewModels.WeatherViewModel
+
+@{
+    ViewBag.Title = "Weather";
+}
+
+<h2>Weather</h2>
+
+<fieldset>
+    <legend>5-day forecast</legend>
+     @foreach (var weather in Model.Weathers)
+        {
+            var date = DateTime.Parse(weather.Time);
+            var dayDate = date.DayOfWeek;
+            <div class="weather">
+            <h3>@dayDate</h3>
+            <img width="100px" height="100px" src=@Url.Content("../../Content/pics/" + weather.Symbol + ".png") alt=@Url.Content("" + weather.Symbol + "") />
+            <p>@weather.Temp</p>
+            </div>
+            
+        }
+</fieldset>

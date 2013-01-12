@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WeatherDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WeatherDbModelStoreContainer">
+          <EntitySet Name="Location" EntityType="WeatherDbModel.Store.Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Weather" EntityType="WeatherDbModel.Store.Weather" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Weather_Location" Association="WeatherDbModel.Store.FK_Weather_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Weather" EntitySet="Weather" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="County" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Country" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="NextUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Weather">
+          <Key>
+            <PropertyRef Name="WeatherID" />
+          </Key>
+          <Property Name="WeatherID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="Symbol" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Period" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Time" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Temp" Type="varchar" Nullable="false" MaxLength="5" />
+        </EntityType>
+        <Association Name="FK_Weather_Location">
+          <End Role="Location" Type="WeatherDbModel.Store.Location" Multiplicity="1" />
+          <End Role="Weather" Type="WeatherDbModel.Store.Weather" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="Weather">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="InsertLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="City" Type="varchar" Mode="In" />
+          <Parameter Name="County" Type="varchar" Mode="In" />
+          <Parameter Name="Country" Type="varchar" Mode="In" />
+          <Parameter Name="NextUpdate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WeatherDbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WeatherEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Locations" EntityType="WeatherDbModel.Location" />
+          <EntitySet Name="Weathers" EntityType="WeatherDbModel.Weather" />
+          <AssociationSet Name="FK_Weather_Location" Association="WeatherDbModel.FK_Weather_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Weather" EntitySet="Weathers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="County" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="NextUpdate" Type="DateTime" />
+          <NavigationProperty Name="Weathers" Relationship="WeatherDbModel.FK_Weather_Location" FromRole="Location" ToRole="Weather" />
+        </EntityType>
+        <EntityType Name="Weather">
+          <Key>
+            <PropertyRef Name="WeatherID" />
+          </Key>
+          <Property Name="WeatherID" Type="Int32" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="Symbol" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Period" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Time" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Location" Relationship="WeatherDbModel.FK_Weather_Location" FromRole="Weather" ToRole="Location" />
+          <Property Type="String" Name="Temp" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Weather_Location">
+          <End Role="Location" Type="WeatherDbModel.Location" Multiplicity="1" />
+          <End Role="Weather" Type="WeatherDbModel.Weather" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="Weather">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WeatherDbModelStoreContainer" CdmEntityContainer="WeatherEntities">
+          <EntitySetMapping Name="Locations"><EntityTypeMapping TypeName="WeatherDbModel.Location"><MappingFragment StoreEntitySet="Location">
+            <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+            <ScalarProperty Name="City" ColumnName="City" />
+            <ScalarProperty Name="County" ColumnName="County" />
+            <ScalarProperty Name="Country" ColumnName="Country" />
+            <ScalarProperty Name="NextUpdate" ColumnName="NextUpdate" />
+          </MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="WeatherDbModel.Location">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="WeatherDbModel.Store.InsertLocation">
+                  <ScalarProperty Name="NextUpdate" ParameterName="NextUpdate" />
+                  <ScalarProperty Name="Country" ParameterName="Country" />
+                  <ScalarProperty Name="County" ParameterName="County" />
+                  <ScalarProperty Name="City" ParameterName="City" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Weathers"><EntityTypeMapping TypeName="WeatherDbModel.Weather"><MappingFragment StoreEntitySet="Weather">
+            <ScalarProperty Name="Temp" ColumnName="Temp" />
+                <ScalarProperty Name="WeatherID" ColumnName="WeatherID" />
+            <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+            <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+            <ScalarProperty Name="Period" ColumnName="Period" />
+            <ScalarProperty Name="Time" ColumnName="Time" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DataModel">
+        <EntityTypeShape EntityType="WeatherDbModel.Location" Width="1.5" PointX="0.75" PointY="0.875" Height="2.1725878906250005" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeatherDbModel.Weather" Width="1.5" PointX="3" PointY="0.875" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="WeatherDbModel.FK_Weather_Location" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.9612939453124998" />
+          <ConnectorPoint PointX="3" PointY="1.9612939453124998" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
