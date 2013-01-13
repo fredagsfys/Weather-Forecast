@@ -11,8 +11,7 @@ namespace WeatherForecast.Models
     [MetadataType(typeof(Weather_Metadata))]
     public partial class Weather : EntityObject
     {
-
-        
+        public DateTime NextUpdate { get; set; }
     }
     public class Weather_Metadata
     {
@@ -20,5 +19,6 @@ namespace WeatherForecast.Models
         public string Symbol { get; set; }
         public int LocationID { get; set; }
         public string Temp { get; set; }
+      
     }
 }

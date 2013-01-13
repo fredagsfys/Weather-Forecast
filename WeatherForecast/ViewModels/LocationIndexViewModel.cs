@@ -12,5 +12,8 @@ namespace WeatherForecast.ViewModels
     {
         public List<Location> Locations { get; set; }
         public string City { get; set; }
+        public List<Weather> Weathers { get; set; }
+        public string Lat { get; set; }
+        public string Lng { get; set; }
     }
 }

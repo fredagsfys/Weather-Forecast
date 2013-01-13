@@ -22,6 +22,19 @@ namespace WeatherForecast.Models
             this._repository = repository;
         }
 
+        public string[] FindDistinctCities(string term)
+        {
+            var currentLocation = this._repository
+                .QueryLocation()
+                .Where(u => u.City.Contains(term))
+                .Select(u => u.City)
+                .Distinct()
+                .OrderBy(s => s)
+                .ToArray();
+
+            return currentLocation;
+        }
+
         public List<Location> FindLocation(string city)
         {
             // Try to get the user from the database.
@@ -52,31 +65,53 @@ namespace WeatherForecast.Models
         {
             var weather = this._repository
             .QueryWeather()
-            .SingleOrDefault(u => u.LocationID == location.LocationID);
-            
+            .Where(u => u.LocationID == location.LocationID)
+            .ToList();
+
+            //Om inget väder är hämtat, hämtar 
+            if (weather == null || weather.Count == 0)
+            {
+                var webService = new WeatherWebService();
+                weather = webService.FindWeather(location);
+
+                location.NextUpdate = webService.NextUpdate;
+                this._repository.Update(location);
+
+                foreach (var item in weather)
+                {
+                    this._repository.Add(item);
+                }
+
+                this._repository.Save();
+            }
 
             // If there are no tweets or if it is time to uppdate the tweets...
-            if (!location.Weathers.Any() || location.NextUpdate < DateTime.Now)
+            if (!weather.Any() || location.NextUpdate < DateTime.Now)
             {
                 // ...delete the old(?) tweets (if there are any),...
-                location.Weathers
-                    .ToList()
+                     weather.ToList()
                     .ForEach(t => this._repository.Delete(t));
-                   
+
+                     this._repository.Save();
+
                 // ...get the tweets from the web service, and add them to the user,...
                 var webService = new WeatherWebService();
                 webService.FindWeather(location)
                     .ForEach(t => location.Weathers.Add(t));
 
                 // ...set the time of the next update and ...
-                location.NextUpdate = DateTime.Now.AddMinutes(1);
-                this._repository.Update(weather);
+                location.NextUpdate = webService.NextUpdate;
 
+                foreach (var item in weather)
+                {
+                    this._repository.Add(item);
+                }
+                this._repository.Update(location);
                 // ...save the changes in the database.
                 this._repository.Save();
             }
 
-            return location.Weathers.ToList();
+            return weather.ToList();
         }
     }
 }

@@ -18,7 +18,9 @@ namespace WeatherForecast.Models
         public string City { get; set; }
         public string County { get; set; }
         public string Country { get; set; }
-        public int LocationID { get; set; }
+        public string Lat { get; set; }
+        public string Lng { get; set; }
         public DateTime NextUpdate { get; set; }
+        public int LocationID { get; set; }
     }
 }

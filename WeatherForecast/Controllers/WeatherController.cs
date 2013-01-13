@@ -34,12 +34,23 @@ namespace WeatherForecast.Controllers
             return View("Index", model);
         }
 
+        [HttpPost]
+        public ActionResult FindDistinctCities(string term)
+        {
+            var service = new WeatherService();
+            var cities = Json(service.FindDistinctCities(term), JsonRequestBehavior.AllowGet);
+            return cities;
+        }
+
+        
         public ActionResult Weather(Location loc)
         {
             try
             {
-                var service = new WeatherWebService();
-                var model = new WeatherViewModel();
+                var service = new WeatherService();
+                var model = new LocationIndexViewModel();
+                model.Lat = loc.Lat;
+                model.Lng = loc.Lng;
                 model.Weathers = service.FindWeather(loc);
 
                 return View("Weather", model);

@@ -15,7 +15,9 @@ namespace WeatherForecast.Models
             {
                 City = element.Element("name").Value,
                 County = element.Element("adminName1").Value,
-                Country = element.Element("countryName").Value
+                Country = element.Element("countryName").Value,
+                Lat = element.Element("lat").Value,
+                Lng = element.Element("lng").Value
 
             };
         }

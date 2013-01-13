@@ -85,16 +85,30 @@
     <Compile Include="Models\WeatherWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LocationIndexViewModel.cs" />
-    <Compile Include="ViewModels\WeatherViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\pics\earth.jpg" />
+    <Content Include="Content\images\blue.png" />
+    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_0_eeeeee_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_55_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_100_f6f6f6_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_25_0073ea_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_50_dddddd_1x100.png" />
+    <Content Include="Content\images\ui-icons_0073ea_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_666666_256x240.png" />
+    <Content Include="Content\images\ui-icons_ff0084_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\pics\cloudy.png" />
+    <Content Include="Content\pics\eye.png" />
     <Content Include="Content\pics\fair.png" />
     <Content Include="Content\pics\Partly_cloudy.png" />
     <Content Include="Content\pics\rain.png" />
     <Content Include="Content\pics\snow_showers.png" />
     <Content Include="Content\pics\snow.png" />
+    <Content Include="Content\pics\heavy_rain.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

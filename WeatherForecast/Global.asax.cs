@@ -26,6 +26,11 @@ namespace WeatherForecast
                 "{controller}/{action}", // URL with parameters
                 new { controller = "Weather", action = "Index" } // Parameter defaults
             );
+            routes.MapRoute(
+                "Create", // Route name
+                "{controller}/{action}", // URL with parameters
+                new { controller = "Weather", action = "Weather" } // Parameter defaults
+            );
         }
 
         protected void Application_Start()

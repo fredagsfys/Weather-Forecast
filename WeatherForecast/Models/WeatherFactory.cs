@@ -18,6 +18,7 @@ namespace WeatherForecast.Models
                 Period = status.Attribute("period").Value,
                 Temp = status.Element("temperature").Attribute("value").Value,
                 LocationID = locationId
+                
             };
         }
     }

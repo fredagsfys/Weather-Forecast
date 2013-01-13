@@ -10,6 +10,19 @@ namespace WeatherForecast.Models
 {
     public class WeatherWebService
     {
+        private DateTime _nextUpdate;
+        public DateTime NextUpdate
+        {
+            get
+            {
+                return _nextUpdate;
+            }
+            set
+            {
+                _nextUpdate = value;
+            }
+        }
+
         public List<Location> FindLocation(string city)
         {
             // Load the response from the webservice into an XML document.
@@ -30,8 +43,8 @@ namespace WeatherForecast.Models
             string requestUriString = String.Format(@"http://www.yr.no/place/{0}/{1}/{2}/forecast.xml", location.Country, location.County, location.City);
             var document = LoadDocument(requestUriString);
 
-            //
-  
+            NextUpdate = DateTime.Parse((from nu in document.Descendants("nextupdate") select nu).SingleOrDefault().Value); ;
+
             return (from time in document.Descendants("time") // Alla time noder.
                     where Int32.Parse(time.Attribute("period").Value) >= 2 // Där period är större än 2.
                     group time by DateTime.Parse(time.Attribute("from").Value).Date into g // Gruppera varje nodes perioders värde. Sätter in dem i gruppen g.

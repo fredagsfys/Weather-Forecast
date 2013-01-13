@@ -281,6 +281,54 @@ namespace WeatherForecast.Models
         private Nullable<global::System.DateTime> _NextUpdate;
         partial void OnNextUpdateChanging(Nullable<global::System.DateTime> value);
         partial void OnNextUpdateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Lat
+        {
+            get
+            {
+                return _Lat;
+            }
+            set
+            {
+                OnLatChanging(value);
+                ReportPropertyChanging("Lat");
+                _Lat = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Lat");
+                OnLatChanged();
+            }
+        }
+        private global::System.String _Lat;
+        partial void OnLatChanging(global::System.String value);
+        partial void OnLatChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Lng
+        {
+            get
+            {
+                return _Lng;
+            }
+            set
+            {
+                OnLngChanging(value);
+                ReportPropertyChanging("Lng");
+                _Lng = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Lng");
+                OnLngChanged();
+            }
+        }
+        private global::System.String _Lng;
+        partial void OnLngChanging(global::System.String value);
+        partial void OnLngChanged();
 
         #endregion
     
