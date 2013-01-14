@@ -68,7 +68,7 @@ namespace WeatherForecast.Models
             .Where(u => u.LocationID == location.LocationID)
             .ToList();
 
-            //Om inget väder är hämtat, hämtar 
+    
             if (weather == null || weather.Count == 0)
             {
                 var webService = new WeatherWebService();
@@ -85,28 +85,28 @@ namespace WeatherForecast.Models
                 this._repository.Save();
             }
 
-            // If there are no tweets or if it is time to uppdate the tweets...
+           
             if (!weather.Any() || location.NextUpdate < DateTime.Now)
             {
-                // ...delete the old(?) tweets (if there are any),...
-                     weather.ToList()
-                    .ForEach(t => this._repository.Delete(t));
+                
+                weather.ToList()
+                .ForEach(t => this._repository.Delete(t));
 
-                     this._repository.Save();
-
-                // ...get the tweets from the web service, and add them to the user,...
+                weather.Clear();
+               
                 var webService = new WeatherWebService();
                 webService.FindWeather(location)
-                    .ForEach(t => location.Weathers.Add(t));
-
-                // ...set the time of the next update and ...
+                    .ForEach(t => weather.Add(t));
+               
                 location.NextUpdate = webService.NextUpdate;
 
                 foreach (var item in weather)
                 {
                     this._repository.Add(item);
                 }
+                //Krashar här...
                 this._repository.Update(location);
+
                 // ...save the changes in the database.
                 this._repository.Save();
             }

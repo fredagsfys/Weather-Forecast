@@ -18,7 +18,6 @@ namespace WeatherForecast.Models
                 Country = element.Element("countryName").Value,
                 Lat = element.Element("lat").Value,
                 Lng = element.Element("lng").Value
-
             };
         }
     }

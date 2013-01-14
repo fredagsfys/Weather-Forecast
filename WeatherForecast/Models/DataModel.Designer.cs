@@ -144,14 +144,12 @@ namespace WeatherForecast.Models
         /// </summary>
         /// <param name="locationID">Initial value of the LocationID property.</param>
         /// <param name="city">Initial value of the City property.</param>
-        /// <param name="county">Initial value of the County property.</param>
         /// <param name="country">Initial value of the Country property.</param>
-        public static Location CreateLocation(global::System.Int32 locationID, global::System.String city, global::System.String county, global::System.String country)
+        public static Location CreateLocation(global::System.Int32 locationID, global::System.String city, global::System.String country)
         {
             Location location = new Location();
             location.LocationID = locationID;
             location.City = city;
-            location.County = county;
             location.Country = country;
             return location;
         }
@@ -213,7 +211,7 @@ namespace WeatherForecast.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String County
         {
@@ -225,7 +223,7 @@ namespace WeatherForecast.Models
             {
                 OnCountyChanging(value);
                 ReportPropertyChanging("County");
-                _County = StructuralObject.SetValidValue(value, false);
+                _County = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("County");
                 OnCountyChanged();
             }

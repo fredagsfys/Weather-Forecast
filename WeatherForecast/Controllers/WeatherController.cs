@@ -29,6 +29,7 @@ namespace WeatherForecast.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(String.Empty, ex.Message);
+                return View("Error");
             }
 
             return View("Index", model);
@@ -37,9 +38,17 @@ namespace WeatherForecast.Controllers
         [HttpPost]
         public ActionResult FindDistinctCities(string term)
         {
-            var service = new WeatherService();
-            var cities = Json(service.FindDistinctCities(term), JsonRequestBehavior.AllowGet);
-            return cities;
+            try
+            {
+                var service = new WeatherService();
+                var cities = Json(service.FindDistinctCities(term), JsonRequestBehavior.AllowGet);
+                return cities;
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, ex.Message);
+            }
+            return View("Error");
         }
 
         
@@ -59,7 +68,6 @@ namespace WeatherForecast.Controllers
             {
                 ModelState.AddModelError(String.Empty, ex.Message);
             }
-
             return View("Error");
         }
     }

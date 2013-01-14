@@ -275,7 +275,9 @@ li a{
   background-color: #51a351;
   *background-color: #499249;
 }
-
+p.err{
+    color: red;
+}
 .btn-success:active,
 .btn-success.active {
   background-color: #408140 \9;

@@ -15,10 +15,22 @@ namespace WeatherForecast.Models
     }
     public class Weather_Metadata
     {
+        [DisplayName("Time")]
+        [Required(ErrorMessage = "Time was incorrect")]
+        [StringLength(50, ErrorMessage = "Time exceeded length limit, 50 characters")]
         public string Time { get; set; }
+
+        [DisplayName("Symbol")]
+        [Required(ErrorMessage = "Symbol was incorrect")]
+        [StringLength(50, ErrorMessage = "Symbol exceeded length limit, 50 characters")]
         public string Symbol { get; set; }
-        public int LocationID { get; set; }
+
+        [DisplayName("Temp")]
+        [Required(ErrorMessage = "Temp was incorrect")]
+        [StringLength(50, ErrorMessage = "Temp exceeded length limit, 50 characters")]
         public string Temp { get; set; }
+
+        public int LocationID { get; set; }
       
     }
 }
